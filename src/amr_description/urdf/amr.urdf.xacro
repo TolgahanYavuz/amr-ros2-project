@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot name="amr" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="inertia_macros.xacro" />
+
+    <!-- Robot Wheel Properties, all masses need to be weighted  -->
+
+    <xacro:property name="wheelRadius" value="0.0325" />
+    <xacro:property name="wheelWidth" value="0.026" />
+    <xacro:property name="wheelMass" value="0.08" />
+    <xacro:property name="wheelSeparation" value="0.167" />
+
+    <!-- Robot Chassis Properties -->
+
+    <xacro:property name="chassisLength" value="0.2405" />
+    <xacro:property name="chassisWidth" value="0.143" />
+    <xacro:property name="chassisHeight" value="0.065" />
+    <xacro:property name="chassisMass" value="1.7" />
+
+    <!-- Robot Caster Wheel Properties -->
+
+    <xacro:property name="casterRadius" value="0.03" />
+    <xacro:property name="casterMass" value="0.06" />
+
+    <!-- Base Link configuration-->
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 ${wheelRadius + chassisHeight/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}" />
+            </geometry>
+        </visual>
+        <collision>
+           <origin xyz="0 0 ${wheelRadius + chassisHeight/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="${chassisMass}" />
+            <xacro:box_inertia m="${chassisMass}" x="${chassisLength}" y="${chassisWidth}"
+                z="${chassisHeight}" />
+        </inertial>
+    </link>
+
+
+</robot>
